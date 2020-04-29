@@ -74,7 +74,18 @@ export default {
     }
   },
   methods: {
+    validate() {
+      const isTypeExist = this.form.itemType.length > 0;
+      const isDescriptionExist = this.form.itemDescription.length > 0;
+      const isFineExist = this.form.itemFine.length > 0;
+      return isTypeExist && isDescriptionExist && isFineExist;
+    },
     saveItem() {
+      if (!this.validate()) {
+        alert("Please Fill All Input. And check if Fine is more than 0");
+        return;
+      }
+
       if (this.form.itemID) {
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].itemID === this.form.itemID) {
