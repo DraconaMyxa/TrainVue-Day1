@@ -4,15 +4,15 @@
             <form @submit.prevent="saveItem">
                 <div>
                     <label for="itemType">Type:</label>
-                    <input type="text" name="itemType" v-model="form.itemType" />
+                    <input type="text" ref="itemType" v-model="form.itemType" />
                 </div>
                 <div>
                     <label for="itemDescription">Description:</label>
-                    <textarea name="description" id="description" cols="30" rows="10" v-model="form.itemDescription"></textarea>
+                    <textarea ref="itemDescription" id="description" cols="30" rows="10" v-model="form.itemDescription"></textarea>
                 </div>
                 <div>
                     <label for="itemFine">Fine:</label>
-                    <input type="text" name="itemFine" v-model="form.itemFine">
+                    <input type="text" ref="itemFine" v-model="form.itemFine">
                 </div>
                 <div>
                     <label for="itemIsPaid">Is Paid:</label>
@@ -78,6 +78,13 @@ export default {
       const isTypeExist = this.form.itemType.length > 0;
       const isDescriptionExist = this.form.itemDescription.length > 0;
       const isFineExist = this.form.itemFine.length > 0;
+      if (!isTypeExist) {
+        this.$refs.itemType.focus();
+      } else if (!isDescriptionExist) {
+        this.$refs.itemDescription.focus();
+      } else if (!isFineExist) {
+        this.$refs.itemFine.focus();
+      }
       return isTypeExist && isDescriptionExist && isFineExist;
     },
     saveItem() {
